@@ -1,0 +1,24 @@
+Basis:
+ - Tech Mod, Name:
+ - Everything has to be learned using a multi-block "library" thing
+ -
+Blocks:
+ - Library
+    - Used to learn new recipes for use in the 'Constructing Table'
+    - Multi-block Structure (2x2)
+    - Only one player using it at a time
+ - Constructing Table
+    - Advanced Crafting Table
+    - Create advanced recipes learned in the Library
+    - Needs the recipe unlocked (learned) Not just freely crafting
+    - Simple block, Item can be right clicked on Crafting Table to create this.
+ - Ores:
+    - Tin Ore, Ingot, and Dust
+    - Copper Ore, Ingot, and Dust
+    - Nickel Ore, Ingot, and Dust
+Items:
+    - Mod Guide
+        - Have tons of information on all the features in the mod in the book.
+        - Free with spawn, or easy crafting recipe.
+    - Constructing Table Template
+        - Right click on Crafting Table to turn it into a Constructing Table.
