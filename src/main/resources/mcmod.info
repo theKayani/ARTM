@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "artm",
+  "name": "Another Redundant Tech Mod",
+  "description": "ARTM is another redundant tech mod. It allows players to incorporate 'new' and exciting technologies into their Minecraft World!",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Fir3will"],
+  "credits": "Fir3will for making this mod.",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
