@@ -1,5 +1,6 @@
 package com.hk.artm;
 
+import com.hk.artm.block.BlockLibrary;
 import com.hk.artm.item.ItemARTMGuide;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -16,17 +17,25 @@ public class Init
 {
 	public static final CreativeTabs artmTab = new CreativeARTMTabs();
 
-	public static final Item artmGuide = new ItemARTMGuide();
+	// ITEMS
+	public static final Item ITEM_ARTM_GUIDE = new ItemARTMGuide();
+
+	// BLOCKS
+	public static final Block BLOCK_LIBRARY = new BlockLibrary();
 
 	public static void register()
 	{
-		GameRegistry.register(artmGuide);
+		register(ITEM_ARTM_GUIDE);
+
+		register(BLOCK_LIBRARY);
 	}
 
 	@SideOnly(Side.CLIENT)
 	public static void registerRenders()
 	{
-		registerRender(artmGuide);
+		registerRender(ITEM_ARTM_GUIDE);
+
+		registerRender(BLOCK_LIBRARY);
 	}
 
 	public static void addRecipes()

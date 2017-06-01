@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "mode=default": {
+      "model": "artm:library_default"
+    },
+    "mode=bottom_left": {
+      "model": "artm:library_bl"
+    },
+    "mode=bottom_right": {
+      "model": "artm:library_br"
+    },
+    "mode=top_left": {
+      "model": "artm:library_tl"
+    },
+    "mode=top_right": {
+      "model": "artm:library_tr"
+    }
+  }
+}

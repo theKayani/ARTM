@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "blocks/planks_oak",
+    "up": "blocks/planks_oak",
+    "down": "blocks/planks_oak",
+    "north": "artm:blocks/library_c",
+    "south": "artm:blocks/library_c",
+    "west": "artm:blocks/library_c",
+    "east": "artm:blocks/library_c"
+  }
+}

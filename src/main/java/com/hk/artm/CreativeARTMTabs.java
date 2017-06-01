@@ -16,6 +16,6 @@ public class CreativeARTMTabs extends CreativeTabs
 	@SideOnly(Side.CLIENT)
 	public ItemStack getTabIconItem()
 	{
-		return new ItemStack(Init.artmGuide);
+		return new ItemStack(Init.ITEM_ARTM_GUIDE);
 	}
 }
