@@ -1,6 +1,7 @@
 package com.hk.artm;
 
 import com.hk.artm.block.BlockLibrary;
+import com.hk.artm.block.tile.TileLibrary;
 import com.hk.artm.item.ItemARTMGuide;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -8,6 +9,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,6 +30,8 @@ public class Init
 		register(ITEM_ARTM_GUIDE);
 
 		register(BLOCK_LIBRARY);
+
+		registerTile(TileLibrary.class);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -43,6 +47,11 @@ public class Init
 
 	}
 
+	private static void registerTile(Class<? extends TileEntity> cls)
+	{
+		GameRegistry.registerTileEntity(cls, cls.getName());
+	}
+
 	private static void register(Object obj)
 	{
 		if (obj instanceof Block)
@@ -50,10 +59,12 @@ public class Init
 			Block block = (Block) obj;
 			GameRegistry.register(block);
 			GameRegistry.register(new ItemBlock(block), block.getRegistryName());
-		} else if (obj instanceof Item)
+		}
+		else if (obj instanceof Item)
 		{
 			GameRegistry.register((Item) obj);
-		} else
+		}
+		else
 		{
 			throw new IllegalArgumentException(obj + " isn't a block or item");
 		}
@@ -80,14 +91,16 @@ public class Init
 			{
 				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, i, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 			}
-		} else if (obj instanceof Item)
+		}
+		else if (obj instanceof Item)
 		{
 			final Item item = (Item) obj;
 			for (int i = 0; i < subtypes; i++)
 			{
 				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, i, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 			}
-		} else
+		}
+		else
 		{
 			throw new IllegalArgumentException(obj + " isn't a block or item");
 		}

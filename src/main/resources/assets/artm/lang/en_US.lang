@@ -3,3 +3,5 @@
 tile.library.name=Library
 item.artmguide.name=ARTM Guide
 itemGroup.artm=ARTM Tab
+tile.multiblockneeded.msg=You need to construct the multiblock first!
+container.library.name=Library

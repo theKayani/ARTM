@@ -1,26 +1,29 @@
 package com.hk.artm.block;
 
+import com.hk.artm.ARTM;
 import com.hk.artm.Init;
+import com.hk.artm.block.tile.TileLibrary;
+import com.hk.artm.gui.GuiIDs;
+import com.hk.artm.util.ARTMUtil;
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockLibrary extends BlockARTM
+import javax.annotation.Nullable;
+
+public class BlockLibrary extends BlockARTM implements ITileEntityProvider
 {
 	public static final PropertyEnum<BlockLibrary.EnumType> MODE = PropertyEnum.create("mode", BlockLibrary.EnumType.class);
 
@@ -32,9 +35,29 @@ public class BlockLibrary extends BlockARTM
 
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
+		System.out.println(ARTMUtil.getSide() + ", " + playerIn.getCapability(ARTM.ARTM_PLAYER_PROPERTIES, null).randomNum);
 		ItemStack stack = playerIn.getHeldItem(hand);
 		if (stack.getItem() == Init.ITEM_ARTM_GUIDE)
 		{
+			EnumType type = state.getValue(MODE);
+			if (type == EnumType.DEFAULT)
+			{
+				playerIn.sendMessage(new TextComponentTranslation("tile.multiblockneeded.msg"));
+				return true;
+			}
+			if (type == EnumType.BOTTOM_RIGHT)
+			{
+				pos = pos.north();
+			}
+			else if (type == EnumType.TOP_LEFT)
+			{
+				pos = pos.east();
+			}
+			else if (type == EnumType.TOP_RIGHT)
+			{
+				pos = pos.north().east();
+			}
+			playerIn.openGui(ARTM.instance, GuiIDs.GUI_LIBRARY, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			return true;
 		}
 		return false;
@@ -88,15 +111,6 @@ public class BlockLibrary extends BlockARTM
 		return BlockLibrary.EnumType.DEFAULT.ordinal();
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list)
-	{
-		for (BlockLibrary.EnumType type : BlockLibrary.EnumType.values())
-		{
-			list.add(new ItemStack(itemIn, 1, type.ordinal()));
-		}
-	}
-
 	public IBlockState getStateFromMeta(int meta)
 	{
 		return this.getDefaultState().withProperty(MODE, BlockLibrary.EnumType.values()[meta]);
@@ -109,7 +123,14 @@ public class BlockLibrary extends BlockARTM
 
 	protected BlockStateContainer createBlockState()
 	{
-		return new BlockStateContainer(this, new IProperty[]{MODE});
+		return new BlockStateContainer(this, MODE);
+	}
+
+	@Nullable
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta)
+	{
+		return new TileLibrary();
 	}
 
 	public enum EnumType implements IStringSerializable

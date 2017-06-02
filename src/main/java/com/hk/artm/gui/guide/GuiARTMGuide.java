@@ -151,24 +151,28 @@ public class GuiARTMGuide extends GuiScreen
 		if (keyCode == Keyboard.KEY_LEFT)
 		{
 			goToPage(currPage - 1);
-		} else if (keyCode == Keyboard.KEY_RIGHT)
+		}
+		else if (keyCode == Keyboard.KEY_RIGHT)
 		{
 			goToPage(currPage + 1);
-		} else if (keyCode == Keyboard.KEY_BACK)
+		}
+		else if (keyCode == Keyboard.KEY_BACK)
 		{
 			int size = prevPages.size();
 			if (size > 0)
 			{
 				goToPage(prevPages.remove(size - 1));
 			}
-		} else if (Character.isDigit(typedChar))
+		}
+		else if (Character.isDigit(typedChar))
 		{
 			if (typeStart == -1)
 			{
 				typeStart = Minecraft.getSystemTime();
 			}
 			typedPage = typedPage * 10 + Integer.parseInt(String.valueOf(typedChar));
-		} else
+		}
+		else
 		{
 			typeStart = -1;
 			typedPage = -1;
@@ -183,10 +187,12 @@ public class GuiARTMGuide extends GuiScreen
 			if (button.id == 0)
 			{
 				Minecraft.getMinecraft().displayGuiScreen(null);
-			} else if (button.id == 1)
+			}
+			else if (button.id == 1)
 			{
 				goToPage(currPage + 1);
-			} else if (button.id == 2)
+			}
+			else if (button.id == 2)
 			{
 				goToPage(currPage - 1);
 			}
