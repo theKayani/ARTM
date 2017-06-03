@@ -31,9 +31,8 @@ public class PacketPlayerPropSync extends ARTMNetwork.ARTMPacket
 	}
 
 	@Override
-	public ARTMNetwork.ARTMPacket onClientReceive(EntityPlayerSP player)
+	public void onClientReceive(EntityPlayerSP player)
 	{
 		player.getCapability(ARTM.ARTM_PLAYER_PROPERTIES, null).deserializeNBT(tag);
-		return super.onClientReceive(player);
 	}
 }

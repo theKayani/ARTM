@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ARTMNetwork
+public class ARTMNetwork implements IMessageHandler<ARTMNetwork.ARTMMessage, IMessage>
 {
 	public static final ARTMNetwork INSTANCE = new ARTMNetwork();
 	private SimpleNetworkWrapper packetPipeline;
@@ -27,8 +27,8 @@ public class ARTMNetwork
 	public void preInit()
 	{
 		packetPipeline = NetworkRegistry.INSTANCE.newSimpleChannel(ARTM.MODID + "_network");
-		packetPipeline.registerMessage(ARTMMessage.class, ARTMMessage.class, 0, Side.CLIENT);
-		packetPipeline.registerMessage(ARTMMessage.class, ARTMMessage.class, 1, Side.SERVER);
+		packetPipeline.registerMessage(this, ARTMMessage.class, 0, Side.CLIENT);
+		packetPipeline.registerMessage(this, ARTMMessage.class, 1, Side.SERVER);
 		registerPackets();
 	}
 
@@ -62,7 +62,35 @@ public class ARTMNetwork
 		packetPipeline.sendToAllAround(new ARTMMessage(packet), point);
 	}
 
-	public static final class ARTMMessage implements IMessage, IMessageHandler<ARTMMessage, IMessage>
+	@Override
+	public IMessage onMessage(final ARTMMessage message, final MessageContext ctx)
+	{
+		if (ctx.side.isClient())
+		{
+			Minecraft.getMinecraft().addScheduledTask(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					message.packet.onClientReceive(Minecraft.getMinecraft().player);
+				}
+			});
+		}
+		else
+		{
+			ctx.getServerHandler().playerEntity.getServer().addScheduledTask(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					message.packet.onServerReceive(ctx.getServerHandler().playerEntity);
+				}
+			});
+		}
+		return null;
+	}
+
+	public static final class ARTMMessage implements IMessage
 	{
 		private ARTMPacket packet;
 
@@ -90,8 +118,7 @@ public class ARTMNetwork
 		{
 			try
 			{
-				Class<? extends ARTMPacket> cls = INSTANCE.clss.get(buf.readShort());
-				packet = cls.newInstance();
+				packet = INSTANCE.clss.get(buf.readShort()).newInstance();
 				NBTTagCompound tag = ByteBufUtils.readTag(buf);
 				packet.readFromNBT(tag);
 			}
@@ -99,21 +126,6 @@ public class ARTMNetwork
 			{
 				throw new RuntimeException(e);
 			}
-		}
-
-		@Override
-		public IMessage onMessage(ARTMMessage message, MessageContext ctx)
-		{
-			ARTMPacket reply;
-			if (ctx.side.isClient())
-			{
-				reply = packet.onClientReceive(Minecraft.getMinecraft().player);
-			}
-			else
-			{
-				reply = packet.onServerReceive(ctx.getServerHandler().playerEntity);
-			}
-			return reply == null ? null : new ARTMMessage(reply);
 		}
 	}
 
@@ -123,15 +135,13 @@ public class ARTMNetwork
 
 		public abstract void readFromNBT(NBTTagCompound tag);
 
-		public ARTMPacket onServerReceive(EntityPlayerMP player)
+		public void onServerReceive(EntityPlayerMP player)
 		{
-			return null;
 		}
 
 		@SideOnly(Side.CLIENT)
-		public ARTMPacket onClientReceive(EntityPlayerSP player)
+		public void onClientReceive(EntityPlayerSP player)
 		{
-			return null;
 		}
 	}
 }

@@ -4,7 +4,6 @@ import com.hk.artm.network.ARTMNetwork;
 import com.hk.artm.network.PacketPlayerPropSync;
 import com.hk.artm.util.ARTMUtil;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -23,6 +22,7 @@ public class ARTMPlayerProperties implements ICapabilitySerializable<NBTTagCompo
 	public ARTMPlayerProperties()
 	{
 		randomNum = (int) (Math.random() * 1000);
+		System.err.println(ARTMUtil.getSide() + ", " + randomNum);
 	}
 
 	public void setPlayer(EntityPlayer player)
@@ -37,7 +37,8 @@ public class ARTMPlayerProperties implements ICapabilitySerializable<NBTTagCompo
 	{
 		if (ARTMUtil.isServer())
 		{
-			ARTMNetwork.INSTANCE.sendTo(new PacketPlayerPropSync(this), (EntityPlayerMP) player);
+//			ARTMNetwork.INSTANCE.sendTo(new PacketPlayerPropSync(this), (EntityPlayerMP) player);
+			ARTMNetwork.INSTANCE.sendToAll(new PacketPlayerPropSync(this));
 		}
 	}
 
@@ -62,14 +63,16 @@ public class ARTMPlayerProperties implements ICapabilitySerializable<NBTTagCompo
 	public NBTTagCompound serializeNBT()
 	{
 		NBTTagCompound tag = new NBTTagCompound();
-		randomNum = tag.getInteger("Schtuff");
+
+		tag.setInteger("Schtuff", randomNum);
+
 		return tag;
 	}
 
 	@Override
 	public void deserializeNBT(NBTTagCompound tag)
 	{
-		tag.setInteger("Schtuff", randomNum);
+		randomNum = tag.getInteger("Schtuff");
 	}
 
 	public static void register()
