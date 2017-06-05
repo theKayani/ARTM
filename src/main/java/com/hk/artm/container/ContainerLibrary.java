@@ -33,14 +33,14 @@ public class ContainerLibrary extends ContainerARTM
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (index == 0)
+			if (index < 4)
 			{
-				if (!this.mergeItemStack(itemstack1, 1, this.inventorySlots.size(), true))
+				if (!this.mergeItemStack(itemstack1, 4, this.inventorySlots.size(), true))
 				{
 					return ItemStack.EMPTY;
 				}
 			}
-			else if (!this.mergeItemStack(itemstack1, 0, 1, false))
+			else if (!this.mergeItemStack(itemstack1, 0, 4, false))
 			{
 				return ItemStack.EMPTY;
 			}

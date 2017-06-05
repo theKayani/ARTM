@@ -35,7 +35,8 @@ public class GuiARTMGuide extends GuiScreen
 		this.player = player;
 		List<GuidePage> lst = new ArrayList<GuidePage>();
 
-		addPage(lst, new TitleGuidePage(this));
+		addPage(lst, new TitlePage(this));
+		addPage(lst, new IntroPage(this));
 
 		pages = lst.toArray(new GuidePage[lst.size()]);
 		currPage = 0;

@@ -1,7 +1,7 @@
 package com.hk.artm.network;
 
 import com.hk.artm.ARTM;
-import com.hk.artm.ARTMPlayerProperties;
+import com.hk.artm.player.ARTMPlayerProperties;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.nbt.NBTTagCompound;
 

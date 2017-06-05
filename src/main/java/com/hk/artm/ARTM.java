@@ -2,6 +2,7 @@ package com.hk.artm;
 
 import com.hk.artm.gui.ARTMGuiHandler;
 import com.hk.artm.network.ARTMNetwork;
+import com.hk.artm.player.ARTMPlayerProperties;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -12,6 +13,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ARTM.MODID, version = ARTM.VERSION)
 public class ARTM
@@ -48,4 +51,6 @@ public class ARTM
 	{
 		proxy.postInit();
 	}
+
+	public static final Logger log = LogManager.getLogger("ARTM");
 }

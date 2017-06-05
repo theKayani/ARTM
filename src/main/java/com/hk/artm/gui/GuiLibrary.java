@@ -25,10 +25,13 @@ public class GuiLibrary extends GuiContainer
 	 */
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
-//		String s = this.tile.getDisplayName().getUnformattedText();
-//		this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
-		this.fontRendererObj.drawString(String.valueOf(playerInv.player.getCapability(ARTM.ARTM_PLAYER_PROPERTIES, null).randomNum), 30, 18, 0x404040);
-		this.fontRendererObj.drawString(playerInv.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 0x404040);
+		String s = this.tile.getDisplayName().getUnformattedText();
+		this.fontRendererObj.drawString(s, 8, 6, 4210752);
+		for (int i = 0; i < 5; i++)
+		{
+			this.fontRendererObj.drawString(String.valueOf(playerInv.player.getCapability(ARTM.ARTM_PLAYER_PROPERTIES, null).randomNum), 50, 20 + (i * 10), 0x404040);
+		}
+		this.fontRendererObj.drawString(playerInv.getDisplayName().getUnformattedText(), 8, this.ySize - 92, 0x404040);
 	}
 
 	@Override

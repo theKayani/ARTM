@@ -1,11 +1,18 @@
 Basis:
- - Tech Mod, Name: ARTM (Another Redundant Tech Mod)
+X- Tech Mod, Name: ARTM (Another Redundant Tech Mod)
  - Everything has to be learned using a multi-block "library" thing
- -
+ - Add JEI compatibility, and other mods as well!
+
+Player:
+   X- Players will have individual properties (capabilities)
+    - These properties will hold data to record whether they have unlocked the recipe or not
+    - Then it will be used in  the Constructing Table, but the recipe has to be learnt before
+      being used in the Constructing Table.
 Blocks:
- - Library
+X- Library
     - Used to learn new recipes for use in the 'Constructing Table'
-    - Multi-block Structure (2x2)
+    - Player inserts 2x2 crafting recipe to unlock the blueprint which is used in the Constructing Table
+   X- Multi-block Structure (2x2)
     - Only one player using it at a time
  - Constructing Table
     - Advanced Crafting Table
@@ -13,11 +20,13 @@ Blocks:
     - Needs the recipe unlocked (learned) Not just freely crafting
     - Simple block, Item can be right clicked on Crafting Table to create this.
  - Ores:
-    - Tin Ore, Ingot, and Dust
-    - Copper Ore, Ingot, and Dust
-    - Nickel Ore, Ingot, and Dust
+    - Use other mods ingots, ores, and dusts instead of creating our own
+   X- Tin Ore, Ingot, and Dust
+   X- Copper Ore, Ingot, and Dust
+   X- Nickel Ore, Ingot, and Dust
+
 Items:
-    - Mod Guide
+   X- Mod Guide
         - Have tons of information on all the features in the mod in the book.
         - Free with spawn, or easy crafting recipe.
     - Constructing Table Template

@@ -1,7 +1,16 @@
 #
-#Wed May 31 17:29:09 EDT 2017
-tile.library.name=Library
+#Sat Jun 03 17:25:47 EDT 2017
+item.copper_ingot.name=Copper Ingot
 item.artmguide.name=ARTM Guide
-itemGroup.artm=ARTM Tab
-tile.multiblockneeded.msg=You need to construct the multiblock first!
 container.library.name=Library
+item.nickel_dust.name=Nickel Dust
+tile.nickel_ore.name=Nickel Ore
+item.tin_dust.name=Tin Dust
+tile.tin_ore.name=Tin Ore
+tile.library.name=Library
+tile.copper_ore.name=Copper Ore
+tile.multiblockneeded.msg=You need to construct the multiblock first!
+itemGroup.artm=ARTM Tab
+item.nickel_ingot.name=Nickel Ingot
+item.copper_dust.name=Copper Dust
+item.tin_ingot.name=Tin Ingot

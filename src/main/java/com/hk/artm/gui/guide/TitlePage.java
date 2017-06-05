@@ -2,9 +2,9 @@ package com.hk.artm.gui.guide;
 
 import net.minecraft.util.text.TextFormatting;
 
-public class TitleGuidePage extends GuidePage
+public class TitlePage extends GuidePage
 {
-	public TitleGuidePage(GuiARTMGuide screen)
+	public TitlePage(GuiARTMGuide screen)
 	{
 		super(screen);
 	}

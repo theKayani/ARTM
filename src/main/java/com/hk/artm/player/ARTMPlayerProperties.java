@@ -1,5 +1,6 @@
-package com.hk.artm;
+package com.hk.artm.player;
 
+import com.hk.artm.ARTM;
 import com.hk.artm.network.ARTMNetwork;
 import com.hk.artm.network.PacketPlayerPropSync;
 import com.hk.artm.util.ARTMUtil;
@@ -22,7 +23,6 @@ public class ARTMPlayerProperties implements ICapabilitySerializable<NBTTagCompo
 	public ARTMPlayerProperties()
 	{
 		randomNum = (int) (Math.random() * 1000);
-		System.err.println(ARTMUtil.getSide() + ", " + randomNum);
 	}
 
 	public void setPlayer(EntityPlayer player)

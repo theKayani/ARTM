@@ -139,11 +139,11 @@ public abstract class TileInventory extends TileEntity implements IInventory
 
 	public static void addSlotSquare(IInventory inv, List<Slot> slots, int idStart, int x, int y, int rows, int cols)
 	{
-		for (int j = 0; j < rows; ++j)
+		for (int i = 0; i < rows; i++)
 		{
-			for (int k = 0; k < cols; ++k)
+			for (int j = 0; j < cols; j++)
 			{
-				slots.add(new Slot(inv, idStart + k + j * 9, x + 8 + k * 18, y + 18 + j * 18));
+				slots.add(new Slot(inv, idStart + j + i * cols, x + j * 18, y + i * 18));
 			}
 		}
 	}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "artm:tin_ore"
+    }
+  }
+}

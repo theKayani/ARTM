@@ -1,5 +1,6 @@
 package com.hk.artm;
 
+import com.hk.artm.player.ARTMPlayerProperties;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;

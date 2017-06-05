@@ -35,14 +35,13 @@ public class BlockLibrary extends BlockARTM implements ITileEntityProvider
 
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
-		System.out.println(ARTMUtil.getSide() + ", " + playerIn.getCapability(ARTM.ARTM_PLAYER_PROPERTIES, null).randomNum);
 		ItemStack stack = playerIn.getHeldItem(hand);
 		if (stack.getItem() == Init.ITEM_ARTM_GUIDE)
 		{
 			EnumType type = state.getValue(MODE);
 			if (type == EnumType.DEFAULT)
 			{
-				playerIn.sendMessage(new TextComponentTranslation("tile.multiblockneeded.msg"));
+				ARTMUtil.sendMessage(playerIn, "tile.multiblockneeded.msg");
 				return true;
 			}
 			if (type == EnumType.BOTTOM_RIGHT)

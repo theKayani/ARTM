@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "artm:copper_ore"
+    }
+  }
+}
