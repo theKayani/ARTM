@@ -20,7 +20,7 @@ public class JEICompat implements IModPlugin
 	@Override
 	public void register(IModRegistry registry)
 	{
-
+		LibraryCategory.register(registry);
 	}
 
 	@Override

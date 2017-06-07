@@ -155,5 +155,5 @@ public class GuiLibrary extends GuiContainer
 		down.enabled = learntIndex < learntItems.size() - 5;
 	}
 
-	private static final ResourceLocation LIBRARY_GUI = new ResourceLocation(ARTM.MODID + ":textures/gui/library_gui.png");
+	public static final ResourceLocation LIBRARY_GUI = new ResourceLocation(ARTM.MODID + ":textures/gui/library_gui.png");
 }

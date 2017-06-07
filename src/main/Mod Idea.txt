@@ -1,7 +1,7 @@
 Basis:
 D- Tech Mod, Name: ARTM (Another Redundant Tech Mod)
  - Everything has to be learned using a multi-block "library" thing
-C- Add JEI compatibility, and other mods as well!
+ - Add JEI compatibility, and other mods as well!
 
 Player:
    D- Players will have individual properties (capabilities)
