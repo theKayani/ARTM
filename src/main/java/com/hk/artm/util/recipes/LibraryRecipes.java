@@ -3,6 +3,7 @@ package com.hk.artm.util.recipes;
 import com.google.common.collect.ImmutableList;
 import com.hk.artm.ARTM;
 import com.hk.artm.container.ICraftingContainer;
+import com.hk.artm.item.ItemBlueprint;
 import com.hk.artm.network.PacketPlayerPropSync;
 import com.hk.artm.util.ARTMUtil;
 import net.minecraft.block.Block;
@@ -80,17 +81,17 @@ public class LibraryRecipes
 	{
 	}
 
-	public static class LibraryRecipe
+	public static class LibraryRecipe implements BasicRecipe
 	{
 		public final Item itemLearnt;
 		public final List<List<ItemStack>> stacks = NonNullList.withSize(4, (List<ItemStack>) new ArrayList<ItemStack>());
 		public LibraryRecipe(Item itemLearnt, Object a, Object b, Object c, Object d)
 		{
 			this.itemLearnt = itemLearnt;
-			this.stacks.set(0, ARTMUtil.toStackList(a));
-			this.stacks.set(1, ARTMUtil.toStackList(b));
-			this.stacks.set(2, ARTMUtil.toStackList(c));
-			this.stacks.set(3, ARTMUtil.toStackList(d));
+			this.stacks.set(0, ImmutableList.copyOf(ARTMUtil.toStackList(a)));
+			this.stacks.set(1, ImmutableList.copyOf(ARTMUtil.toStackList(b)));
+			this.stacks.set(2, ImmutableList.copyOf(ARTMUtil.toStackList(c)));
+			this.stacks.set(3, ImmutableList.copyOf(ARTMUtil.toStackList(d)));
 			checkAtLeastOne();
 		}
 
@@ -150,6 +151,18 @@ public class LibraryRecipes
 				}
 			}
 			return false;
+		}
+
+		@Override
+		public List<List<ItemStack>> getAllValidInputs()
+		{
+			return stacks;
+		}
+
+		@Override
+		public List<ItemStack> getAllOutputs()
+		{
+			return Collections.singletonList(ItemBlueprint.getStackFor(this, null));
 		}
 	}
 }

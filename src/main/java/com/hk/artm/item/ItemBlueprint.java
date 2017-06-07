@@ -48,11 +48,11 @@ public class ItemBlueprint extends ItemARTM
 	public static ItemStack getStackFor(LibraryRecipes.LibraryRecipe recipe, EntityPlayer learntBy)
 	{
 		ItemStack stack = new ItemStack(Init.ITEM_BLUEPRINT);
+		stack.setItemDamage(Item.getIdFromItem(recipe.itemLearnt));
 
 		NBTTagCompound tag = stack.getTagCompound() == null ? new NBTTagCompound() : stack.getTagCompound();
 
 		tag.setString("ItemLearnt", recipe.itemLearnt.getItemStackDisplayName(stack));
-		tag.setInteger("ItemLearntID", Item.getIdFromItem(recipe.itemLearnt));
 		if (learntBy != null)
 		{
 			tag.setString("LearntBy", learntBy.getDisplayNameString());

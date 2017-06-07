@@ -2,6 +2,7 @@ package com.hk.artm.compat.jei;
 
 import com.hk.artm.Init;
 import com.hk.artm.gui.GuiLibrary;
+import com.hk.artm.util.recipes.BasicRecipe;
 import com.hk.artm.util.recipes.LibraryRecipes;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModRegistry;
