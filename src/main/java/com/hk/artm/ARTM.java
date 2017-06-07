@@ -3,6 +3,7 @@ package com.hk.artm;
 import com.hk.artm.gui.ARTMGuiHandler;
 import com.hk.artm.network.ARTMNetwork;
 import com.hk.artm.player.ARTMPlayerProperties;
+import com.hk.artm.util.recipes.LibraryRecipes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -13,8 +14,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Random;
 
 @Mod(modid = ARTM.MODID, version = ARTM.VERSION)
 public class ARTM
@@ -44,13 +48,17 @@ public class ARTM
 		Init.addRecipes();
 		ARTMPlayerProperties.register();
 		proxy.init();
+		GameRegistry.registerWorldGenerator(new ARTMWorldGen(), 5);
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		proxy.postInit();
+
+		LibraryRecipes.init();
 	}
 
 	public static final Logger log = LogManager.getLogger("ARTM");
+	public static final Random rand = new Random();
 }

@@ -1,5 +1,5 @@
 #
-#Sat Jun 03 17:25:47 EDT 2017
+#Mon Jun 05 01:10:47 EDT 2017
 item.copper_ingot.name=Copper Ingot
 item.artmguide.name=ARTM Guide
 container.library.name=Library
@@ -9,7 +9,8 @@ item.tin_dust.name=Tin Dust
 tile.tin_ore.name=Tin Ore
 tile.library.name=Library
 tile.copper_ore.name=Copper Ore
-tile.multiblockneeded.msg=You need to construct the multiblock first!
+item.blueprint.name=Blueprint
+tile.multiblockneeded.msg=You need to construct the multiblock first.
 itemGroup.artm=ARTM Tab
 item.nickel_ingot.name=Nickel Ingot
 item.copper_dust.name=Copper Dust

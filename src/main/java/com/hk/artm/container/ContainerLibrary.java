@@ -1,9 +1,15 @@
 package com.hk.artm.container;
 
+import com.hk.artm.ARTM;
 import com.hk.artm.block.tile.TileLibrary;
+import net.minecraft.block.BlockChest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryLargeChest;
 import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 
 public class ContainerLibrary extends ContainerARTM
@@ -13,6 +19,7 @@ public class ContainerLibrary extends ContainerARTM
 	public ContainerLibrary(InventoryPlayer playerInv, TileLibrary tile)
 	{
 		super(playerInv, tile);
+		tile.openInventory(playerInv.player);
 		this.tile = tile;
 
 		for (Slot slot : tile.getSlots())
@@ -33,9 +40,16 @@ public class ContainerLibrary extends ContainerARTM
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
-			if (index < 4)
+			if (itemstack1.getItem() == Items.PAPER)
 			{
-				if (!this.mergeItemStack(itemstack1, 4, this.inventorySlots.size(), true))
+				if (!this.mergeItemStack(itemstack1, 4, 5, true))
+				{
+					return ItemStack.EMPTY;
+				}
+			}
+			else if (index < 6)
+			{
+				if (!this.mergeItemStack(itemstack1, 6, this.inventorySlots.size(), true))
 				{
 					return ItemStack.EMPTY;
 				}
@@ -54,7 +68,15 @@ public class ContainerLibrary extends ContainerARTM
 				slot.onSlotChanged();
 			}
 		}
+		tile.markDirty();
 
 		return itemstack;
+	}
+
+	@Override
+	public void onContainerClosed(EntityPlayer playerIn)
+	{
+		super.onContainerClosed(playerIn);
+		tile.closeInventory(playerIn);
 	}
 }

@@ -2,9 +2,11 @@ package com.hk.artm.block.tile;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
@@ -117,7 +119,24 @@ public abstract class TileInventory extends TileEntity implements IInventory
 	@Override
 	public void clear()
 	{
+		for (int i = 0; i < getSizeInventory(); i++)
+		{
+			setInventorySlotContents(i, ItemStack.EMPTY);
+		}
+	}
 
+	public void readFromNBT(NBTTagCompound compound)
+	{
+		super.readFromNBT(compound);
+		ItemStackHelper.loadAllItems(compound, (NonNullList<ItemStack>) items);
+	}
+
+	@Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound)
+	{
+		NBTTagCompound tag = super.writeToNBT(compound);
+		ItemStackHelper.saveAllItems(compound, (NonNullList<ItemStack>) items);
+		return tag;
 	}
 
 	@Override

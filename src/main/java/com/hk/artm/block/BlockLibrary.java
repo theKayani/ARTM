@@ -12,16 +12,21 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BlockLibrary extends BlockARTM implements ITileEntityProvider
 {
@@ -56,7 +61,11 @@ public class BlockLibrary extends BlockARTM implements ITileEntityProvider
 			{
 				pos = pos.north().east();
 			}
-			playerIn.openGui(ARTM.instance, GuiIDs.GUI_LIBRARY, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			if (ARTMUtil.isServer())
+			{
+				playerIn.openGui(ARTM.instance, GuiIDs.GUI_LIBRARY, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			}
+
 			return true;
 		}
 		return false;
@@ -100,7 +109,40 @@ public class BlockLibrary extends BlockARTM implements ITileEntityProvider
 		checkMultiblock(worldIn, pos, state);
 	}
 
-	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+	{
+		EnumType type = state.getValue(MODE);
+		if (type != EnumType.DEFAULT)
+		{
+			BlockPos origPos = pos;
+			if (type == EnumType.BOTTOM_RIGHT)
+			{
+				pos = pos.north();
+			}
+			else if (type == EnumType.TOP_LEFT)
+			{
+				pos = pos.east();
+			}
+			else if (type == EnumType.TOP_RIGHT)
+			{
+				pos = pos.north().east();
+			}
+			TileEntity tileentity = worldIn.getTileEntity(pos);
+			if (tileentity instanceof TileLibrary)
+			{
+				TileLibrary tile = (TileLibrary) tileentity;
+				tile.setInventorySlotContents(5, ItemStack.EMPTY);
+				InventoryHelper.dropInventoryItems(worldIn, origPos, tile);
+				tile.clear();
+				worldIn.updateComparatorOutputLevel(origPos, this);
+			}
+		}
+
+		super.breakBlock(worldIn, pos, state);
+	}
+
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
 	{
 		return new ItemStack(Init.BLOCK_LIBRARY);
 	}

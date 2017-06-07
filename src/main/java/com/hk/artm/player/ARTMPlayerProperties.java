@@ -5,24 +5,28 @@ import com.hk.artm.network.ARTMNetwork;
 import com.hk.artm.network.PacketPlayerPropSync;
 import com.hk.artm.util.ARTMUtil;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.*;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ARTMPlayerProperties implements ICapabilitySerializable<NBTTagCompound>
 {
 	public static final String CAP_ID = ARTM.MODID + ":player_cap";
-	public int randomNum;
 	private EntityPlayer player;
+
+	public final List<Item> learntItems;
 
 	public ARTMPlayerProperties()
 	{
-		randomNum = (int) (Math.random() * 1000);
+		learntItems = new ArrayList<Item>();
 	}
 
 	public void setPlayer(EntityPlayer player)
@@ -33,12 +37,20 @@ public class ARTMPlayerProperties implements ICapabilitySerializable<NBTTagCompo
 		}
 	}
 
+	public void addLearntItem(Item item)
+	{
+		if (!learntItems.contains(item))
+		{
+			learntItems.add(item);
+		}
+	}
+
 	public void sync()
 	{
 		if (ARTMUtil.isServer())
 		{
-//			ARTMNetwork.INSTANCE.sendTo(new PacketPlayerPropSync(this), (EntityPlayerMP) player);
-			ARTMNetwork.INSTANCE.sendToAll(new PacketPlayerPropSync(this));
+			ARTMNetwork.INSTANCE.sendTo(new PacketPlayerPropSync(this), (EntityPlayerMP) player);
+//			ARTMNetwork.INSTANCE.sendToAll(new PacketPlayerPropSync(this));
 		}
 	}
 
@@ -64,7 +76,12 @@ public class ARTMPlayerProperties implements ICapabilitySerializable<NBTTagCompo
 	{
 		NBTTagCompound tag = new NBTTagCompound();
 
-		tag.setInteger("Schtuff", randomNum);
+		NBTTagList lst = new NBTTagList();
+		for (int i = 0; i < learntItems.size(); i++)
+		{
+			lst.appendTag(new NBTTagInt(Item.getIdFromItem(learntItems.get(i))));
+		}
+		tag.setTag("LearntItems", lst);
 
 		return tag;
 	}
@@ -72,7 +89,12 @@ public class ARTMPlayerProperties implements ICapabilitySerializable<NBTTagCompo
 	@Override
 	public void deserializeNBT(NBTTagCompound tag)
 	{
-		randomNum = tag.getInteger("Schtuff");
+		learntItems.clear();
+		NBTTagList lst = (NBTTagList) tag.getTag("LearntItems");
+		for (int i = 0; i < lst.tagCount(); i++)
+		{
+			learntItems.add(Item.getItemById(lst.getIntAt(i)));
+		}
 	}
 
 	public static void register()

@@ -1,32 +1,35 @@
 Basis:
-X- Tech Mod, Name: ARTM (Another Redundant Tech Mod)
+D- Tech Mod, Name: ARTM (Another Redundant Tech Mod)
  - Everything has to be learned using a multi-block "library" thing
- - Add JEI compatibility, and other mods as well!
+C- Add JEI compatibility, and other mods as well!
 
 Player:
-   X- Players will have individual properties (capabilities)
-    - These properties will hold data to record whether they have unlocked the recipe or not
-    - Then it will be used in  the Constructing Table, but the recipe has to be learnt before
-      being used in the Constructing Table.
+   D- Players will have individual properties (capabilities)
+   D- These properties will hold data to record whether they have unlocked the recipe or not
+    - Then it will be used in  the Constructing Table, but the recipe has to be learnt before being used in the
+      Constructing Table.
+
 Blocks:
-X- Library
-    - Used to learn new recipes for use in the 'Constructing Table'
-    - Player inserts 2x2 crafting recipe to unlock the blueprint which is used in the Constructing Table
-   X- Multi-block Structure (2x2)
-    - Only one player using it at a time
+D- Library
+   D- Used to learn new recipes for use in the 'Constructing Table'
+   D- Player inserts 2x2 crafting recipe to unlock the blueprint which is used in the Constructing Table
+   D- Multi-block Structure (2x2)
+   D- Only one player using it at a time
+   D- Player can get blueprints using recipes already unlocked
+   D- Enable Recipe in player's capability
  - Constructing Table
     - Advanced Crafting Table
     - Create advanced recipes learned in the Library
     - Needs the recipe unlocked (learned) Not just freely crafting
     - Simple block, Item can be right clicked on Crafting Table to create this.
- - Ores:
+ C- Ores:
     - Use other mods ingots, ores, and dusts instead of creating our own
-   X- Tin Ore, Ingot, and Dust
-   X- Copper Ore, Ingot, and Dust
-   X- Nickel Ore, Ingot, and Dust
+   D- Tin Ore, Ingot, and Dust. Gen at: (20 - 55), Vein Size: 8, Clusters per Chunk: 9
+   D- Copper Ore, Ingot, and Dust Gen at: (40 - 75), Vein Size: 8, Clusters per Chunk: 12
+   D- Nickel Ore, Ingot, and Dust Gen at: (0 - 20), Vein Size: 4, Clusters per Chunk: 2
 
 Items:
-   X- Mod Guide
+   D- Mod Guide
         - Have tons of information on all the features in the mod in the book.
         - Free with spawn, or easy crafting recipe.
     - Constructing Table Template

@@ -35,6 +35,7 @@ public class ARTMNetwork implements IMessageHandler<ARTMNetwork.ARTMMessage, IMe
 	private void registerPackets()
 	{
 		registerPacket(PacketPlayerPropSync.class);
+		registerPacket(PacketLibraryRecipePicked.class);
 	}
 
 	private void registerPacket(Class<? extends ARTMPacket> packetClass)

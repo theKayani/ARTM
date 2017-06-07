@@ -5,11 +5,14 @@ import com.hk.artm.block.BlockLibrary;
 import com.hk.artm.block.tile.TileLibrary;
 import com.hk.artm.item.ItemARTM;
 import com.hk.artm.item.ItemARTMGuide;
+import com.hk.artm.item.ItemBlueprint;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -26,6 +29,7 @@ public class Init
 
 	// ITEMS
 	public static final ItemARTMGuide ITEM_ARTM_GUIDE = new ItemARTMGuide();
+	public static final ItemBlueprint ITEM_BLUEPRINT = new ItemBlueprint();
 	public static final ItemARTM ITEM_TIN_INGOT = new ItemARTM("tin_ingot");
 	public static final ItemARTM ITEM_COPPER_INGOT = new ItemARTM("copper_ingot");
 	public static final ItemARTM ITEM_NICKEL_INGOT = new ItemARTM("nickel_ingot");
@@ -42,6 +46,7 @@ public class Init
 	public static void register()
 	{
 		register(ITEM_ARTM_GUIDE);
+		register(ITEM_BLUEPRINT);
 		register(ITEM_TIN_INGOT, "ingotTin");
 		register(ITEM_COPPER_INGOT, "ingotCopper");
 		register(ITEM_NICKEL_INGOT, "ingotNickel", "ingotFerrous");
@@ -61,6 +66,7 @@ public class Init
 	public static void registerRenders()
 	{
 		registerRender(ITEM_ARTM_GUIDE);
+		registerRender(ITEM_BLUEPRINT);
 		registerRender(ITEM_TIN_INGOT);
 		registerRender(ITEM_COPPER_INGOT);
 		registerRender(ITEM_NICKEL_INGOT);
@@ -77,8 +83,26 @@ public class Init
 	public static void addRecipes()
 	{
 		GameRegistry.addSmelting(BLOCK_TIN_ORE, new ItemStack(ITEM_TIN_INGOT), 0.6F);
-		GameRegistry.addSmelting(BLOCK_COPPER_ORE, new ItemStack(ITEM_COPPER_INGOT), 0.7F);
+		GameRegistry.addSmelting(BLOCK_COPPER_ORE, new ItemStack(ITEM_COPPER_INGOT), 0.5F);
 		GameRegistry.addSmelting(BLOCK_NICKEL_ORE, new ItemStack(ITEM_NICKEL_INGOT), 0.7F);
+
+		registerRecipe(BLOCK_LIBRARY, "#B#", "#C#", "###", '#', Blocks.PLANKS, 'B', Items.BOOK, 'C', ITEM_COPPER_INGOT);
+		registerRecipe(ITEM_ARTM_GUIDE, " S ", "SPS", " S ", 'S', Blocks.STONE, 'P', Items.PAPER);
+	}
+
+	private static void registerRecipe(Item item, Object... objects)
+	{
+		registerRecipe(new ItemStack(item), objects);
+	}
+
+	private static void registerRecipe(Block block, Object... objects)
+	{
+		registerRecipe(new ItemStack(block), objects);
+	}
+
+	private static void registerRecipe(ItemStack itemStack, Object... objects)
+	{
+		GameRegistry.addShapedRecipe(itemStack, objects);
 	}
 
 	private static void registerTile(Class<? extends TileEntity> cls)
