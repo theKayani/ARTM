@@ -1,14 +1,16 @@
 package com.hk.artm;
 
 import com.hk.artm.block.BlockARTM;
+import com.hk.artm.block.BlockARTMOre;
+import com.hk.artm.block.BlockConstructing;
 import com.hk.artm.block.BlockLibrary;
 import com.hk.artm.block.tile.TileLibrary;
 import com.hk.artm.item.ItemARTM;
 import com.hk.artm.item.ItemARTMGuide;
 import com.hk.artm.item.ItemBlueprint;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -30,6 +32,7 @@ public class Init
 	// ITEMS
 	public static final ItemARTMGuide ITEM_ARTM_GUIDE = new ItemARTMGuide();
 	public static final ItemBlueprint ITEM_BLUEPRINT = new ItemBlueprint();
+	public static final ItemARTM ITEM_CONSTRUCTING_TEMPLATE = new ItemARTM("constructing_table_template");
 	public static final ItemARTM ITEM_TIN_INGOT = new ItemARTM("tin_ingot");
 	public static final ItemARTM ITEM_COPPER_INGOT = new ItemARTM("copper_ingot");
 	public static final ItemARTM ITEM_NICKEL_INGOT = new ItemARTM("nickel_ingot");
@@ -39,14 +42,16 @@ public class Init
 
 	// BLOCKS
 	public static final BlockLibrary BLOCK_LIBRARY = new BlockLibrary();
-	public static final BlockARTM BLOCK_TIN_ORE = new BlockARTM("tin_ore", Material.ROCK, 2.0F);
-	public static final BlockARTM BLOCK_COPPER_ORE = new BlockARTM("copper_ore", Material.ROCK, 3.0F);
-	public static final BlockARTM BLOCK_NICKEL_ORE = new BlockARTM("nickel_ore", Material.ROCK, 3.0F);
+	public static final BlockConstructing BLOCK_CONSTRUCTING_TABLE = new BlockConstructing();
+	public static final BlockARTM BLOCK_TIN_ORE = new BlockARTMOre("tin_ore", 2, 2.0F);
+	public static final BlockARTM BLOCK_COPPER_ORE = new BlockARTMOre("copper_ore", 1, 3.0F);
+	public static final BlockARTM BLOCK_NICKEL_ORE = new BlockARTMOre("nickel_ore", 2, 3.0F);
 
 	public static void register()
 	{
 		register(ITEM_ARTM_GUIDE);
 		register(ITEM_BLUEPRINT);
+		register(ITEM_CONSTRUCTING_TEMPLATE);
 		register(ITEM_TIN_INGOT, "ingotTin");
 		register(ITEM_COPPER_INGOT, "ingotCopper");
 		register(ITEM_NICKEL_INGOT, "ingotNickel", "ingotFerrous");
@@ -55,6 +60,7 @@ public class Init
 		register(ITEM_NICKEL_DUST, "ingotNickel", "ingotFerrous");
 
 		register(BLOCK_LIBRARY);
+		register(BLOCK_CONSTRUCTING_TABLE);
 		register(BLOCK_TIN_ORE, "oreTin");
 		register(BLOCK_COPPER_ORE, "oreCopper");
 		register(BLOCK_NICKEL_ORE, "oreNickel", "oreFerrous");
@@ -66,7 +72,8 @@ public class Init
 	public static void registerRenders()
 	{
 		registerRender(ITEM_ARTM_GUIDE);
-		registerRender(ITEM_BLUEPRINT);
+		registerRender(ITEM_CONSTRUCTING_TEMPLATE);
+		registerDamagedRender(ITEM_BLUEPRINT);
 		registerRender(ITEM_TIN_INGOT);
 		registerRender(ITEM_COPPER_INGOT);
 		registerRender(ITEM_NICKEL_INGOT);
@@ -75,6 +82,7 @@ public class Init
 		registerRender(ITEM_NICKEL_DUST);
 
 		registerRender(BLOCK_LIBRARY);
+		registerRender(BLOCK_CONSTRUCTING_TABLE);
 		registerRender(BLOCK_TIN_ORE);
 		registerRender(BLOCK_COPPER_ORE);
 		registerRender(BLOCK_NICKEL_ORE);
@@ -88,6 +96,8 @@ public class Init
 
 		registerRecipe(BLOCK_LIBRARY, "#B#", "#C#", "###", '#', Blocks.PLANKS, 'B', Items.BOOK, 'C', ITEM_COPPER_INGOT);
 		registerRecipe(ITEM_ARTM_GUIDE, " S ", "SPS", " S ", 'S', Blocks.STONE, 'P', Items.PAPER);
+		registerRecipe(ITEM_CONSTRUCTING_TEMPLATE, "TCT", "CRC", "TCT", 'T', ITEM_TIN_INGOT, 'C', ITEM_COPPER_INGOT, 'R', Items.REDSTONE);
+		registerRecipe(BLOCK_CONSTRUCTING_TABLE, "CCC", "CTC", "CCC", 'T', ITEM_CONSTRUCTING_TEMPLATE, 'C', Blocks.CRAFTING_TABLE);
 	}
 
 	private static void registerRecipe(Item item, Object... objects)
@@ -174,5 +184,18 @@ public class Init
 		{
 			throw new IllegalArgumentException(obj + " isn't a block or item");
 		}
+	}
+
+	private static void registerDamagedRender(Item item)
+	{
+		final Item item1 = item;
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, new ItemMeshDefinition()
+		{
+			@Override
+			public ModelResourceLocation getModelLocation(ItemStack stack)
+			{
+				return new ModelResourceLocation(item1.getRegistryName(), "inventory");
+			}
+		});
 	}
 }

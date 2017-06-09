@@ -40,35 +40,30 @@ public class BlockLibrary extends BlockARTM implements ITileEntityProvider
 
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 	{
-		ItemStack stack = playerIn.getHeldItem(hand);
-		if (stack.getItem() == Init.ITEM_ARTM_GUIDE)
+		EnumType type = state.getValue(MODE);
+		if (type == EnumType.DEFAULT)
 		{
-			EnumType type = state.getValue(MODE);
-			if (type == EnumType.DEFAULT)
-			{
-				ARTMUtil.sendMessage(playerIn, "tile.multiblockneeded.msg");
-				return true;
-			}
-			if (type == EnumType.BOTTOM_RIGHT)
-			{
-				pos = pos.north();
-			}
-			else if (type == EnumType.TOP_LEFT)
-			{
-				pos = pos.east();
-			}
-			else if (type == EnumType.TOP_RIGHT)
-			{
-				pos = pos.north().east();
-			}
-			if (ARTMUtil.isServer())
-			{
-				playerIn.openGui(ARTM.instance, GuiIDs.GUI_LIBRARY, worldIn, pos.getX(), pos.getY(), pos.getZ());
-			}
-
+			ARTMUtil.sendMessage(playerIn, "tile.multiblockneeded.msg");
 			return true;
 		}
-		return false;
+		if (type == EnumType.BOTTOM_RIGHT)
+		{
+			pos = pos.north();
+		}
+		else if (type == EnumType.TOP_LEFT)
+		{
+			pos = pos.east();
+		}
+		else if (type == EnumType.TOP_RIGHT)
+		{
+			pos = pos.north().east();
+		}
+		if (ARTMUtil.isServer() && !playerIn.isSneaking())
+		{
+			playerIn.openGui(ARTM.instance, GuiIDs.GUI_LIBRARY, worldIn, pos.getX(), pos.getY(), pos.getZ());
+		}
+
+		return true;
 	}
 
 	private void checkMultiblock(World worldIn, BlockPos pos, IBlockState state)

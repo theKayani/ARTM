@@ -8,11 +8,12 @@ import net.minecraft.inventory.Slot;
 
 public class ContainerARTM extends Container
 {
-	private final IInventory inv;
+	public final IInventory inv;
 
 	public ContainerARTM(InventoryPlayer playerInv, IInventory inv)
 	{
 		this.inv = inv;
+		inv.openInventory(playerInv.player);
 	}
 
 	public void addPlayerSlots(InventoryPlayer playerInv, int x, int y)
@@ -35,5 +36,12 @@ public class ContainerARTM extends Container
 	public boolean canInteractWith(EntityPlayer playerIn)
 	{
 		return inv.isUsableByPlayer(playerIn);
+	}
+
+	@Override
+	public void onContainerClosed(EntityPlayer playerIn)
+	{
+		super.onContainerClosed(playerIn);
+		inv.closeInventory(playerIn);
 	}
 }

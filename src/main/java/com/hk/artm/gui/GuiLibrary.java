@@ -110,6 +110,7 @@ public class GuiLibrary extends GuiContainer
 		if (state == 0)
 		{
 			int prev = tile.selectedRecipe;
+			int next = prev;
 			for (int i = 0; i < 5; i++)
 			{
 				if (isMouseOver(i, mouseX, mouseY))
@@ -117,16 +118,19 @@ public class GuiLibrary extends GuiContainer
 					int sel = i + learntIndex;
 					if (sel == tile.selectedRecipe)
 					{
-						tile.selectedRecipe = -1;
+						next = -1;
 					}
 					else
 					{
-						tile.selectedRecipe = sel;
+						next = sel;
 					}
+					up.playPressSound(mc.getSoundHandler());
+					break;
 				}
 			}
-			if (prev != tile.selectedRecipe)
+			if (prev != next && next < learntItems.size())
 			{
+				tile.selectedRecipe = next;
 				tile.recheck = true;
 				ARTMNetwork.INSTANCE.sendToServer(new PacketLibraryRecipePicked(tile.getPos(), tile.selectedRecipe));
 			}

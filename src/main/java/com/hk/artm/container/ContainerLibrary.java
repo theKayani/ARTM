@@ -19,7 +19,6 @@ public class ContainerLibrary extends ContainerARTM
 	public ContainerLibrary(InventoryPlayer playerInv, TileLibrary tile)
 	{
 		super(playerInv, tile);
-		tile.openInventory(playerInv.player);
 		this.tile = tile;
 
 		for (Slot slot : tile.getSlots())
@@ -51,6 +50,10 @@ public class ContainerLibrary extends ContainerARTM
 			{
 				if (!this.mergeItemStack(itemstack1, 6, this.inventorySlots.size(), true))
 				{
+					if (index == 5)
+					{
+						tile.tookCraft();
+					}
 					return ItemStack.EMPTY;
 				}
 			}
@@ -71,12 +74,5 @@ public class ContainerLibrary extends ContainerARTM
 		tile.markDirty();
 
 		return itemstack;
-	}
-
-	@Override
-	public void onContainerClosed(EntityPlayer playerIn)
-	{
-		super.onContainerClosed(playerIn);
-		tile.closeInventory(playerIn);
 	}
 }

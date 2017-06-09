@@ -38,7 +38,7 @@ public class LibraryRecipes
 	private void initializeRecipes(List<LibraryRecipe> recipes)
 	{
 		recipes.add(new LibraryRecipe(Items.EMERALD, "gemDiamond", ARTMUtil.setAmoutFor(ARTMUtil.toStackList("ingotIron"), 3), null, null));
-		recipes.add(new LibraryRecipe(Items.IRON_INGOT, new ItemStack[]{new ItemStack(Items.COAL, 1, 1), new ItemStack(Items.COAL, 1, 2)}, "oreIron", null, null));
+		recipes.add(new LibraryRecipe(Items.IRON_INGOT, new Object[]{new ItemStack(Items.COAL, 1, OreDictionary.WILDCARD_VALUE), "coal"}, "oreIron", null, null));
 		recipes.add(new LibraryRecipe(Items.DIAMOND, Items.APPLE, "cropCarrot", null, null));
 		recipes.add(new LibraryRecipe(Items.APPLE, Items.BEEF, "cropCarrot", "logWood", Blocks.OAK_FENCE));
 		recipes.add(new LibraryRecipe(Items.CARROT, new Object[]{new ItemStack(Items.COAL, 64, OreDictionary.WILDCARD_VALUE), "coal"}, null, null, null));
@@ -88,10 +88,10 @@ public class LibraryRecipes
 		public LibraryRecipe(Item itemLearnt, Object a, Object b, Object c, Object d)
 		{
 			this.itemLearnt = itemLearnt;
-			this.stacks.set(0, ImmutableList.copyOf(ARTMUtil.toStackList(a)));
-			this.stacks.set(1, ImmutableList.copyOf(ARTMUtil.toStackList(b)));
-			this.stacks.set(2, ImmutableList.copyOf(ARTMUtil.toStackList(c)));
-			this.stacks.set(3, ImmutableList.copyOf(ARTMUtil.toStackList(d)));
+			this.stacks.set(0, ARTMUtil.toStackList(a));
+			this.stacks.set(1, ARTMUtil.toStackList(b));
+			this.stacks.set(2, ARTMUtil.toStackList(c));
+			this.stacks.set(3, ARTMUtil.toStackList(d));
 			checkAtLeastOne();
 		}
 

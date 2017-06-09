@@ -35,12 +35,13 @@ public class ItemBlueprint extends ItemARTM
 
 		if (tag != null)
 		{
-			String itemLearnt = tag.getString("ItemLearnt");
-			tooltip.add(TextFormatting.DARK_BLUE + "Blueprint for: " + TextFormatting.RESET + itemLearnt);
+			int itemLearnt = stack.getItemDamage();
+			Item item = Item.getItemById(itemLearnt);
+			tooltip.add(TextFormatting.DARK_BLUE + "Blueprint for: " + TextFormatting.RESET + item.getItemStackDisplayName(new ItemStack((item))));
 			if (tag.hasKey("LearntBy", Constants.NBT.TAG_STRING))
 			{
 				String learntBy = tag.getString("LearntBy");
-				tooltip.add(TextFormatting.DARK_GRAY + "Learnt by '" + TextFormatting.RESET + TextFormatting.GOLD + learntBy + TextFormatting.RESET + TextFormatting.DARK_GRAY + "'" + TextFormatting.RESET);
+				tooltip.add(TextFormatting.DARK_GRAY + "Learnt by " + TextFormatting.RESET + TextFormatting.GOLD + learntBy + TextFormatting.RESET + TextFormatting.DARK_GRAY + "." + TextFormatting.RESET);
 			}
 		}
 	}
@@ -50,9 +51,8 @@ public class ItemBlueprint extends ItemARTM
 		ItemStack stack = new ItemStack(Init.ITEM_BLUEPRINT);
 		stack.setItemDamage(Item.getIdFromItem(recipe.itemLearnt));
 
-		NBTTagCompound tag = stack.getTagCompound() == null ? new NBTTagCompound() : stack.getTagCompound();
+		NBTTagCompound tag = !stack.hasTagCompound() ? new NBTTagCompound() : stack.getTagCompound();
 
-		tag.setString("ItemLearnt", recipe.itemLearnt.getItemStackDisplayName(stack));
 		if (learntBy != null)
 		{
 			tag.setString("LearntBy", learntBy.getDisplayNameString());
@@ -60,14 +60,5 @@ public class ItemBlueprint extends ItemARTM
 
 		stack.setTagCompound(tag);
 		return stack;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems)
-	{
-//		super.getSubItems(itemIn, tab, subItems);
-		List<LibraryRecipes.LibraryRecipe> recipes = LibraryRecipes.INSTANCE.getRecipes();
-		subItems.add(getStackFor(recipes.get(ARTM.rand.nextInt(recipes.size())), Minecraft.getMinecraft().player));
 	}
 }

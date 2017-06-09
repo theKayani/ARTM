@@ -1,8 +1,10 @@
 #
-#Mon Jun 05 01:10:47 EDT 2017
+#Wed Jun 07 19:46:11 EDT 2017
+item.constructing_table_template.name=Constructing Table Template
 item.copper_ingot.name=Copper Ingot
 item.artmguide.name=ARTM Guide
 container.library.name=Library
+container.constructing.name=Library
 item.nickel_dust.name=Nickel Dust
 tile.nickel_ore.name=Nickel Ore
 item.tin_dust.name=Tin Dust
@@ -11,7 +13,9 @@ tile.library.name=Library
 tile.copper_ore.name=Copper Ore
 item.blueprint.name=Blueprint
 tile.multiblockneeded.msg=You need to construct the multiblock first.
+tile.needairblock.msg=You need an air block above the crafting table.
 itemGroup.artm=ARTM Tab
 item.nickel_ingot.name=Nickel Ingot
 item.copper_dust.name=Copper Dust
 item.tin_ingot.name=Tin Ingot
+tile.constructing_table.name=Constructing Table

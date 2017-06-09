@@ -17,20 +17,20 @@ D- Library
    D- Only one player using it at a time
    D- Player can get blueprints using recipes already unlocked
    D- Enable Recipe in player's capability
- - Constructing Table
+C- Constructing Table
     - Advanced Crafting Table
     - Create advanced recipes learned in the Library
     - Needs the recipe unlocked (learned) Not just freely crafting
     - Simple block, Item can be right clicked on Crafting Table to create this.
- C- Ores:
+ - Ores:
     - Use other mods ingots, ores, and dusts instead of creating our own
    D- Tin Ore, Ingot, and Dust. Gen at: (20 - 55), Vein Size: 8, Clusters per Chunk: 9
    D- Copper Ore, Ingot, and Dust Gen at: (40 - 75), Vein Size: 8, Clusters per Chunk: 12
    D- Nickel Ore, Ingot, and Dust Gen at: (0 - 20), Vein Size: 4, Clusters per Chunk: 2
 
 Items:
-   D- Mod Guide
-        - Have tons of information on all the features in the mod in the book.
-        - Free with spawn, or easy crafting recipe.
+    - Mod Guide
+       C- Have tons of information on all the features in the mod in the book.
+       D- Free with spawn, or easy crafting recipe.
     - Constructing Table Template
         - Right click on Crafting Table to turn it into a Constructing Table.
