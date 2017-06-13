@@ -1,5 +1,8 @@
 package com.hk.artm.gui.guide;
 
+import net.minecraft.client.gui.Gui;
+import net.minecraft.util.text.TextFormatting;
+
 public abstract class GuidePage
 {
 	public final GuiARTMGuide parent;
@@ -46,5 +49,10 @@ public abstract class GuidePage
 
 	public void keyTyped(char keyChar, int keyCode)
 	{
+	}
+
+	public String fmt(TextFormatting format, String txt)
+	{
+		return parent.fmt(format, txt);
 	}
 }

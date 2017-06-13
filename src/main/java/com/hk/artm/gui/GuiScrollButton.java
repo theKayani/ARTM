@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 public class GuiScrollButton extends GuiButton
 {
 	public final boolean up;
-	private static final ResourceLocation BUTTON_LOC = new ResourceLocation(ARTM.MODID + ":textures/gui/artm_widgets.png");
 
 	public GuiScrollButton(int buttonId, int x, int y, boolean up)
 	{
@@ -21,7 +20,7 @@ public class GuiScrollButton extends GuiButton
 	{
 		if (visible)
 		{
-			mc.getTextureManager().bindTexture(BUTTON_LOC);
+			mc.getTextureManager().bindTexture(GuiIDs.BUTTON_LOC);
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
 

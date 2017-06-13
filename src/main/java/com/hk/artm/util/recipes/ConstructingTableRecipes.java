@@ -110,39 +110,7 @@ public class ConstructingTableRecipes
 		{
 			this.recipe = recipe;
 			this.isVanilla = isVanilla;
-			input = new ArrayList<>();
-			if (recipe instanceof ShapedRecipes)
-			{
-				ShapedRecipes sr = (ShapedRecipes) recipe;
-				for (ItemStack stack : sr.recipeItems)
-				{
-					input.add(Collections.singletonList(stack));
-				}
-			}
-			else if (recipe instanceof ShapelessRecipes)
-			{
-				ShapelessRecipes slr = (ShapelessRecipes) recipe;
-				for (ItemStack stack : slr.recipeItems)
-				{
-					input.add(Collections.singletonList(stack));
-				}
-			}
-			else if (recipe instanceof ShapelessOreRecipe)
-			{
-				ShapelessOreRecipe slr = (ShapelessOreRecipe) recipe;
-				for (Object obj : slr.getInput())
-				{
-					input.add(ARTMUtil.toStackList(obj));
-				}
-			}
-			else if (recipe instanceof ShapedOreRecipe)
-			{
-				ShapedOreRecipe slr = (ShapedOreRecipe) recipe;
-				for (Object obj : slr.getInput())
-				{
-					input.add(ARTMUtil.toStackList(obj));
-				}
-			}
+			input = ARTMUtil.getRecipe(recipe);
 		}
 
 		@Override

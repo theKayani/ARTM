@@ -1,6 +1,7 @@
 package com.hk.artm.gui.guide;
 
 import com.hk.artm.ARTM;
+import com.hk.artm.Init;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -9,8 +10,10 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
@@ -36,7 +39,9 @@ public class GuiARTMGuide extends GuiScreen
 		List<GuidePage> lst = new ArrayList<GuidePage>();
 
 		addPage(lst, new TitlePage(this));
-		addPage(lst, new IntroPage(this));
+		addPage(lst, new InfoPage(this, "To begin with ARTM, you must collect three different materials. These materials are " + fmt(TextFormatting.GOLD, "Copper") + ", " + fmt(TextFormatting.GRAY, "Tin") + ", and finally " + fmt(TextFormatting.DARK_GREEN, "Nickel (or Ferrous)") + ". These are the main metals of the mod that'll be used in most recipes. Including alloys of these metals as well.",
+				"After collecting these materials. you'll need to construct the " + fmt(TextFormatting.DARK_BLUE, "Library") + " block, (Recipe on next page). "));
+		addPage(lst, new RecipePage(this, new ItemStack(Init.BLOCK_LIBRARY), null, "This is the " + fmt(TextFormatting.DARK_BLUE, "Library") + " block. This block allows you to create " + fmt(TextFormatting.BLUE, "Blueprints") + ". Blueprints allow you to craft what they are for in the constructing table. Most important to remember about this block is that it's a multi-block structure. You need to assemble a 2x2 grid of these blocks to create the multi-block structure."));
 
 		pages = lst.toArray(new GuidePage[lst.size()]);
 		currPage = 0;
@@ -94,8 +99,8 @@ public class GuiARTMGuide extends GuiScreen
 		this.drawTexturedModalRect(i, j, 0, 0, xSize, ySize);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		GL11.glPushMatrix();
-		GL11.glTranslatef(i + 15, j + 10, 0);
-		getCurrPage().drawPage(mouseX, mouseY);
+		GL11.glTranslatef(i + 15, j + 10, 0.1F);
+		getCurrPage().drawPage(mouseX - (i + 15), mouseY - (j + 10));
 		GL11.glPopMatrix();
 		fontRendererObj.setUnicodeFlag(unicode);
 	}
@@ -244,6 +249,11 @@ public class GuiARTMGuide extends GuiScreen
 	public RenderItem getItemRender()
 	{
 		return this.itemRender;
+	}
+
+	public String fmt(TextFormatting format, String txt)
+	{
+		return format + txt + TextFormatting.RESET;
 	}
 
 	@SideOnly(Side.CLIENT)
